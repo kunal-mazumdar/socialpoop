@@ -2,9 +2,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Firebase = require('firebase');
 var poopModel = require('../models/poop');
+var config = require('../config/appConfig');
 
 var router = express.Router();
-var FIREBASE_DB = "https://resplendent-torch-2012.firebaseio.com/";
+var FIREBASE_DB = config.firebase.url;
 var ref = new Firebase(FIREBASE_DB);
 var poopsRef = ref.child("poops");
 
