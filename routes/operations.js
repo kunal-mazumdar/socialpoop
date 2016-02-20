@@ -51,7 +51,9 @@ router.get('/poops', function(req, res){
   } else if(req.query.name){
 
     poopsRef.orderByChild('name').equalTo(req.query.name).on('value', function(snapshot) {
-      res.json(null != snapshot.val() ? snapshot.val() : {});
+      var data =[];
+      //data.push(null != snapshot.val() ? snapshot.val() : {});
+      res.json(null != convertObjToArr(snapshot.val()) ? convertObjToArr(snapshot.val()) : {});
     }, function (errorObject) {
       res.json({response: 'FAIL'});
     });
@@ -59,7 +61,9 @@ router.get('/poops', function(req, res){
   } else if(req.query.source){
 
     poopsRef.orderByChild('source').equalTo(req.query.source).on('value', function(snapshot) {
-      res.json(null != snapshot.val() ? snapshot.val() : {});
+      var data =[];
+      //data.push(null != snapshot.val() ? snapshot.val() : {});
+      res.json(null != convertObjToArr(snapshot.val()) ? convertObjToArr(snapshot.val()) : {});
     }, function (errorObject) {
       res.json({response: 'FAIL'});
     });
@@ -71,7 +75,9 @@ router.get('/poops', function(req, res){
   } else{
 
     poopsRef.on('value', function(snapshot) {
-      res.json(null != snapshot.val() ? snapshot.val() : {});
+      var data =[];
+      //data.push(null != snapshot.val() ? snapshot.val() : {});
+      res.json(null != convertObjToArr(snapshot.val()) ? convertObjToArr(snapshot.val()) : {});
     }, function (errorObject) {
       res.json({response: 'FAIL'});
     });
@@ -242,5 +248,14 @@ router.delete('/poops/:id', function(req, res){
       }
     });
 });
+
+function convertObjToArr(Obj){
+  var returnArr = [];
+  for(var x in Obj){
+    returnArr.push(Obj[x]);
+  }
+  return returnArr;
+}
+
 
 module.exports = router;
